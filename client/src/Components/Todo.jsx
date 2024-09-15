@@ -4,7 +4,7 @@ function Todo({ todo, deleteTodo, handleEdit }) {
     const [name, setName] = useState(todo.name);
     const [edit, setEdit] = useState(false)
     function editTodo() {
-        console.log(edit);
+        // console.log(edit);
 
         setEdit((prev) => !prev);
     }

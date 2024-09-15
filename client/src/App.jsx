@@ -13,14 +13,14 @@ function App() {
   }
 
   const CreateTodo = async (e) => {
-   
+
 
     const newtodo = await axios.post('/api/todo/',
       {
         name: todo
       }
     );
-    console.log("inside createtodo", newtodo);
+    // console.log("inside createtodo", newtodo);
     setTodos([...todos, newtodo.data.todo]);
     settodo('');
   }
@@ -28,15 +28,17 @@ function App() {
   useEffect(() => {
     async function fetchTodos() {
       const todos = await axios.get('/api/todo/');
-   
+
       setTodos(todos.data.todos);
     }
     fetchTodos();
   }, []);
   const deleteTodo = async (id) => {
     await axios.delete(`api/todo/${id}`);
-    const newtodos = todos.filter(todo => todo._id != id);
-    setTodos([...newtodos]);
+    const newtodos = todos.filter(todo => todo._id !== id);
+    console.log(newtodos);
+
+    setTodos(newtodos);
   }
   const handleEdit = async (id, newName) => {
     await axios.put(`api/todo/${id}`, {
@@ -77,6 +79,7 @@ function App() {
 
           {todos.map(element => {
             return <Todo
+              key={element._id}
               todo={element}
               deleteTodo={deleteTodo}
               handleEdit={handleEdit}
